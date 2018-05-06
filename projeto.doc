@@ -1,0 +1,68 @@
+#Clientes.py
+#Albérico Dias Barreto Filho RA:20171571
+#Gabriel Adriano Binoto RA: 20160961
+class Cliente(object):
+    qtdClientes = 0
+    def __init__(self, nome, cpf, email, ativo):
+        self.__class__.qtdClientes += 1
+        self.nome = nome
+        self.cpf = cpf
+        self.emails = ["SEM CADASTRO", "SEM CADASTRO"]
+        self.ativo = ativo
+        self.emails.append(email)
+
+    def iteracaoUsuario(self,textoHead,textoContent='',textoContent2=''):
+        return '\n\n################################\n--------------------------------\n{0}\n--------------------------------\n\n{1}\n================================\n{2}\n\n################################'.format(textoHead,textoContent,textoContent2)    
+
+    def mostrarNumeroCartaoFidelidade(self):
+        return self.iteracaoUsuario('Mostrando numero Total de Clientes', 'Total Clientes: {}'.format(self.__class__.qtdClientes))    
+
+    def dadosBasicosCliente(self):
+        return '#####################################\nDados do Cliente: \n Nome: {0} \n Cpf: {1} \nEmails: \n Email 1 {2} \n Email 2 {3} \nSituação: {4}' .format(self.nome,self.cpf,self.emails[0],self.emails[1], self.ativo)
+
+    def adicionarEmail(self, email):
+        for emailAtual in self.emails:
+            self.emails.remove("SEM CADASTRO")
+        self.emails.append(email)    
+        return self.iteracaoUsuario('Adicionando O Email: {}'.format(email))
+   
+    def mostrarEmails(self):
+        return self.iteracaoUsuario('Mostrando Todos os emails','Emails:\n {}'.format(self.emails))
+
+
+class ClienteVip(Cliente):
+    fidelidade = 0
+    def __init__(self, nome, cpf, email, ativo, pontos=0, endereco='', telefone=''):
+        super().__init__(nome,cpf,email,ativo)
+        self.__class__.fidelidade += 1
+        self.pontosFidelidade = pontos
+        self.endereco = endereco
+        self.telefone = telefone
+
+    def adicionaPontosFidelidade(self, novosPontos):
+        self.pontosFidelidade = novosPontos
+        return self.iteracaoUsuario('Adicionando pontos de fidelidade','Antes você tinha {} Pontos de Fidelidade'.format(self.pontosFidelidade),'Agora você tem {} Pontos de Fidelidade'.format(novosPontos))
+        
+
+    def mostrarPontosFidelidade(self):
+        return self.iteracaoUsuario('Mostrando pontos de fidelidade', 'Pontos de fidelidade {}'.format(self.pontosFidelidade))
+
+    def mostrarNumeroCartaoFidelidade(self):
+        return self.iteracaoUsuario('Mostrando numero Cartão Fidelidade', 'Cartão Número: {}'.format(self.__class__.fidelidade))
+
+# ITERAÇÃO DO PROGRAMA SEGUINDO OS PASSOS
+
+# instancias
+pedro = ClienteVip('Pedro Cabral', 1234567899,'pedro@pedro','Ativo')
+pedro2 = ClienteVip('Pedro Cabral 2', 12345678992,'pedro2@pedro2','Ativo')
+# metodos
+print(pedro.dadosBasicosCliente())       
+# print(pedro.mostrarEmails()) 
+# print(pedro.adicionaPontosFidelidade(15))
+# print(pedro2.adicionaPontosFidelidade(15))
+# print(pedro2.mostrarPontosFidelidade())
+# print(pedro2.dadosBasicosCliente())
+
+# print(pedro2.mostrarEmails())
+# print(pedro2.adicionarEmail('zika@zika'))
+# print(pedro2.mostrarEmails())
