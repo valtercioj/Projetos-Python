@@ -1,3 +1,7 @@
+import os
+import sys
+import subprocess as s
+from googlesearch import search
 class ClienteNormal(object):
     
 #Cliente comum
@@ -40,7 +44,13 @@ class ClienteVIP(ClienteNormal):
         self.pontos += pontos
         print('Agora você tem {} de fidelidade'.format(self.pontos))
 
-
+def site():
+    os = sys.platform()
+    for url in search(opcao+'google', stop=1):
+        if os == 'win32':
+            os.startfile(url)
+        elif os == 'linux':
+            s.Popen(['xdg-open'+url])
 fulano = ClienteVIP('Aleatorio', 40456398217,'aleatorio@hotmail.com','assinante',56)
 print(fulano.dadosClienteNormal())
 print(fulano.adicionaPontosFidelidade(15))
